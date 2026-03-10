@@ -1,5 +1,4 @@
 pipeline {
-
     agent any
 
     tools {
@@ -11,7 +10,7 @@ pipeline {
 
         stage('Checkout') {
             steps {
-             git branch: 'main',url: 'https://github.com/soumadipchangder/Jenkins_1stproject'
+                git branch: 'main', url: 'https://github.com/soumadipchangder/Jenkins_1stproject'
             }
         }
 
@@ -19,8 +18,6 @@ pipeline {
             steps {
                 sh 'mvn clean compile'
             }
-         
-         
         }
 
         stage('Run JUnit Tests') {
@@ -29,13 +26,22 @@ pipeline {
             }
         }
 
-       stage('SonarQube Analysis') {
-          steps {
-          withSonarQubeEnv('SonarServer') {
-            sh 'mvn clean verify sonar:sonar'
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('SonarServer') {
+                    sh 'mvn sonar:sonar'
+                }
+            }
         }
-    }
-}
 
+    }
+
+    post {
+        success {
+            echo 'Pipeline executed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed. Please check the logs.'
+        }
     }
 }
