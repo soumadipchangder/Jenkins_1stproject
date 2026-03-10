@@ -11,7 +11,7 @@ pipeline {
 
         stage('Checkout') {
             steps {
-             git branch: 'main',url: 'https://github.com/soumadipchangder/Jenkins_project'
+             git branch: 'main',url: 'https://github.com/soumadipchangder/Jenkins_1stproject'
             }
         }
 
